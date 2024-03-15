@@ -9,8 +9,12 @@ import time
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal, MoveBaseActionGoal, MoveBaseActionResult
 from geometry_msgs.msg import Twist, Pose, Point, PoseStamped, PoseWithCovarianceStamped, Quaternion
 from actionlib_msgs.msg import GoalStatusArray, GoalStatus
+from std_msgs.msg import Empty, String, Int16
 import actionlib
 
+toggle_ = Empty()
+position_ = String()
+servo_ = Int16()
 
 def pose_callback(pose_with_covariance):
     # print(pose_with_covariance)
@@ -68,6 +72,9 @@ class moveBaseAction():
 def main():
     rospy.init_node('ired_movetogoal_node', anonymous=True)
     publisher_goal = rospy.Publisher('/move_base_simple/goal', PoseStamped, queue_size=1)
+    toggle_led_ = rospy.Publisher('/toggle_led', Empty, queue_size=10)
+    position_pub_ = rospy.Publisher('/position_status', String, queue_size=10)
+    servo_pub_ = rospy.Publisher('/servo_position', Int16, queue_size=10)
     rospy.Subscriber('/amcl_pose', PoseWithCovarianceStamped, pose_callback)
     rospy.Subscriber('/move_base/status', GoalStatusArray, move_base_status_callback)
     rospy.Subscriber('/move_base/result', MoveBaseActionResult, move_base_result_callback)
@@ -75,10 +82,26 @@ def main():
     # TODO
     mba = moveBaseAction()
     while not rospy.is_shutdown():
-        x = float(input("Input Position X: "))
-        y = float(input("Input Position Y: "))
-        z = float(input("Input Orientation Z: "))
-        mba.moveToPoint(x, y, z)
+        mba.moveToPoint(3.471, -1.897, 0.0)
+        position_.data = "Position 1"
+        toggle_led_.publish(toggle_)
+        position_pub_.publish(position_)
+        servo_.data = 10
+        servo_pub_.publish(servo_)
+        time.sleep(3)
+        mba.moveToPoint(3.726, 0.160, 3.14)
+        toggle_led_.publish(toggle_)
+        position_.data = "Position 2"
+        toggle_led_.publish(toggle_)
+        position_pub_.publish(position_)
+        time.sleep(3)
+        mba.moveToPoint(0.767, 0.527, -1.57)
+        toggle_led_.publish(toggle_)
+        position_.data = "Position 3"
+        toggle_led_.publish(toggle_)
+        position_pub_.publish(position_)
+        time.sleep(3)
+
         rospy.sleep(1)
 
     rospy.sleep(1)
