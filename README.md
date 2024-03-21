@@ -17,3 +17,8 @@ $ rosrun ired_movetogoal movetogoal.py
 ```sh
 $ roslaunch ired_rviz navigation.launch
 ```
+## Command for test publish servo
+```
+$ roscore # terminal 1
+$ rosrun ired_movetogoal testservo.py # terminal 2
+```
