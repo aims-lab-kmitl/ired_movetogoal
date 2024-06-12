@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node name="ired_movetogoal_node" pkg="ired_movetogoal" type="movetogoal.py" output="screen" respawn="true"/>
+    
+</launch>
