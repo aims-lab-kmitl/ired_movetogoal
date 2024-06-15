@@ -84,7 +84,7 @@ class moveBaseAction():
             self.navigating.data = 1 # SUCCEEDED
         elif state_ == GoalStatus.ACTIVE or state_ == GoalStatus.PENDING:
             self.navigating.data = 0 # Processing
-            rospy.loginfo(f"X: {current_pose_[0]} Y: {current_pose_[1]} Theta: {current_pose_[2]}")
+            # rospy.loginfo(f"X: {current_pose_[0]} Y: {current_pose_[1]} Theta: {current_pose_[2]}")
         else:
             self.navigating.data = 2 # ABORTED
         

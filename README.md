@@ -11,14 +11,9 @@ $ catkin_make
 ```sh
 $ roslaunch ired_bringup bringup.launch
 $ roslaunch ired_navigation navigation.launch
-$ rosrun ired_movetogoal movetogoal.py
+$ roslaunch ired_movetogoal movetogoal.launch
 ```
 - PC
 ```sh
 $ roslaunch ired_rviz navigation.launch
-```
-## Command for test publish servo
-```
-$ roscore # terminal 1
-$ rosrun ired_movetogoal testservo.py # terminal 2
-```
+``` 
